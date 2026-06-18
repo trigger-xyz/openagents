@@ -57,21 +57,21 @@ dogfood convenience; it does **not** satisfy the
 `pylon.local_claude_agent_bridge.v1` packaged-binary blocker, which requires
 the published stable binary (#4859).
 
-**Non-readiness warnings — read before running:**
+**Launch-gate warnings — read before running:**
 
-- This is a release candidate behind open launch gates. Expect breakage,
-  unannounced behavior changes, and TUI/runtime surfaces that are mid-build.
-- Nothing about running the RC creates earning expectations: paid work
-  classes, settlement, and marketplace routing are gated by the
-  product-promise registry exactly as for v0.2, and no v1.0-only feature
-  (TUI dashboard, runtime backends, Nostr credentials) may be described
-  publicly as released until the registry says so.
+- Stable package means installability, not broad network readiness. Expect
+  launch-window behavior changes and TUI/runtime surfaces that are still being
+  hardened.
+- Nothing about running Pylon creates earning expectations: paid work classes,
+  settlement, and marketplace routing are gated by the product-promise registry
+  and receipt evidence. Installation is a local capability, not spend,
+  accepted-work, payout, or marketplace authority.
 - Run it only with explicit owner approval, on a machine whose owner
-  understands it is pre-release software with wallet-adjacent surfaces.
-  Wallet operations always end in an explicit confirmation dialog, but the
-  posture is: test with sats you can afford to lose, or with none.
-- The local gate (`bun run release:gate`) is the bar the RC has to pass;
-  if you run the RC and find a gate the suite misses, that report is more
+  understands it has wallet-adjacent surfaces. Wallet operations always end in
+  an explicit confirmation dialog, but the posture is: test with sats you can
+  afford to lose, or with none.
+- The local gate (`bun run release:gate`) is the bar the release line has to
+  pass; if you run Pylon and find a gate the suite misses, that report is more
   valuable than the testing itself - file it or post it on the Forum.
 
 Initial supported operator platforms are macOS and Linux. No other operator

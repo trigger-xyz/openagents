@@ -4,7 +4,7 @@ import { currentIsoTimestamp } from './runtime-primitives'
 export const PublicProductPromisesEndpoint = '/api/public/product-promises'
 export const PublicProductPromisesSchemaVersion =
   'openagents.product_promises.v1'
-export const PublicProductPromisesVersion = '2026-06-18.6'
+export const PublicProductPromisesVersion = '2026-06-18.7'
 
 const reportPath = 'https://openagents.com/forum/f/product-promises'
 
@@ -148,7 +148,7 @@ export const publicProductPromisesDocument = () => {
         'apps/pylon/docs/launch-gates-no-overclaim.md',
       ],
       caveats: [
-        'Pylon v1.0 has a stable source cut, while default npm publish convergence and live deployment remain separate release operations.',
+        'Pylon v1.0 has a stable source cut and the default npm package resolves to 1.0.0; signed standalone binaries, live deployment, earning, and settlement remain separate release/receipt operations.',
         'macOS and Linux are the first supported operator platforms for the v1.0 launch path.',
         'Pylon v1.0 local release gates and a no-spend live worker-loop smoke exist, but broad earning, paid assignment, settlement, and stable-release claims still need fresh public evidence before they go green.',
         'Training, data revenue, provider-capacity resale, referral payouts, and signature revenue remain gated or planned. Broad local-inference resale and Qwen fine-tune products remain out of scope by owner decision (2026-06-10), but registry 2026-06-15.11 retains the explicit yellow exception for a basic, entirely local Apple FM Autopilot tool/chat path for Apple users and records the Pylon loopback readiness command, buildable Foundation Models bridge helper, Desktop readiness/mode UI, fake-bridge-tested local chat/tool session runner, and admitted-Mac smoke evidence as implemented.',
@@ -376,9 +376,9 @@ export const publicProductPromisesDocument = () => {
         claim:
           'Pylon is in the monorepo as the v1.0 contributor node and includes the former Probe runtime surface.',
         safeCopy:
-          'The stable Pylon v1.0 source cut is present and the live install guide is Pylon-first. macOS and Linux operators should use https://openagents.com/INSTALL.md; while npm latest convergence is being verified, the guide names the rc tag and signed binary fallback. Network-wide earning remains gated by live assignment, validation, and settlement receipts.',
+          'The stable Pylon v1.0 source cut is present, npm latest resolves @openagentsinc/pylon@1.0.0, and the live install guide is Pylon-first. macOS and Linux operators should use https://openagents.com/INSTALL.md. Network-wide earning remains gated by live assignment, validation, and settlement receipts.',
         unsafeCopy:
-          'Do not claim that anyone can install Pylon and automatically earn Bitcoin, or that the default npm latest path is fully closed until the L-1 install receipt proves it. Auto-update is default-on, signature-verified, and now PROVEN live in production (2026-06-16): an installed standalone binary fetched the signed feed at updates.openagents.com, verified the artifact sha256 + ed25519 against the pinned key (fail-closed), and atomically applied it. The signed-binary OTA feed and npm package publish are separate surfaces; the feed advances only when the signed-binary publish flow runs.',
+          'Do not claim that anyone can install Pylon and automatically earn Bitcoin, or that the npm package publish proves the signed standalone feed, live assignment admission, validation, payout, or settlement loops. Auto-update is default-on, signature-verified, and now PROVEN live in production (2026-06-16): an installed standalone binary fetched the signed feed at updates.openagents.com, verified the artifact sha256 + ed25519 against the pinned key (fail-closed), and atomically applied it. The signed-binary OTA feed and npm package publish are separate surfaces; the feed advances only when the signed-binary publish flow runs.',
         evidenceRefs: [
           'apps/pylon/package.json',
           'apps/pylon/scripts/build-rc-binaries.sh',
@@ -389,11 +389,10 @@ export const publicProductPromisesDocument = () => {
           'docs/autopilot-coder/2026-06-15-rc-tester-install-guide.md',
         ],
         blockerRefs: [
-          'blocker.product_promises.pylon_v1_default_install_receipt_missing',
           'blocker.product_promises.pylon_v1_live_network_smokes_incomplete',
         ],
         verification:
-          'apps/pylon package metadata and version.ts report @openagentsinc/pylon@1.0.0. The June 18 roadmap records the stable source cut and still treats L-1 as not fully closed until npm latest resolves the v1.0 node.',
+          'apps/pylon package metadata and version.ts report @openagentsinc/pylon@1.0.0. Live npm verification on 2026-06-18 showed latest=1.0.0 and `npx --yes --package @openagentsinc/pylon pylon --version` returned 1.0.0. Signed standalone feed rollout, live network assignment, payout, and settlement remain separate gates.',
         authorityBoundary:
           'A local package install does not prove live OpenAgents network registration, paid work, payout, settlement, or marketplace authority.',
       },
@@ -405,20 +404,18 @@ export const publicProductPromisesDocument = () => {
         state: 'yellow',
         claim: 'A new version of Pylon releases.',
         safeCopy:
-          'The Pylon v1.0 source cut has landed for macOS and Linux, and the install guide is Pylon-first. Default npm latest verification, signed-binary/feed rollout, and live deployment are separate gates; Windows/WSL is deliberately out of scope by owner decision (2026-06-10), not a pending gap.',
+          'The Pylon v1.0 source cut has landed for macOS and Linux, npm latest resolves 1.0.0, and the install guide is Pylon-first. Signed-binary/feed rollout, live deployment, earning, and settlement are separate gates; Windows/WSL is deliberately out of scope by owner decision (2026-06-10), not a pending gap.',
         unsafeCopy:
-          'Do not claim a stable universal Pylon release works on every computer, that the default install path is fully receipt-proven before L-1 closes, or that installing Pylon automatically earns Bitcoin. Auto-update is default-on, signature-verified, and now PROVEN live in production (2026-06-16): an installed standalone binary fetched the signed feed, verified sha256 + ed25519 against the pinned key (fail-closed), and atomically applied the update. The signed-binary OTA feed and the npm package are separate surfaces.',
+          'Do not claim a stable universal Pylon release works on every computer, that the signed standalone feed moved merely because npm moved, or that installing Pylon automatically earns Bitcoin. Auto-update is default-on, signature-verified, and now PROVEN live in production (2026-06-16): an installed standalone binary fetched the signed feed, verified sha256 + ed25519 against the pinned key (fail-closed), and atomically applied the update. The signed-binary OTA feed and the npm package are separate surfaces.',
         evidenceRefs: [
           'apps/pylon/package.json',
           'apps/pylon/scripts/build-rc-binaries.sh',
           'apps/openagents.com/apps/web/public/INSTALL.md',
           'apps/pylon/docs/launch-gates-no-overclaim.md',
         ],
-        blockerRefs: [
-          'blocker.product_promises.pylon_v1_default_install_receipt_missing',
-        ],
+        blockerRefs: [],
         verification:
-          'Run apps/pylon local release gates and separate install smokes before changing this to green.',
+          'apps/pylon package metadata and version.ts report 1.0.0, npm latest resolves 1.0.0, and `npx --yes --package @openagentsinc/pylon pylon --version` returned 1.0.0 on 2026-06-18. This release record does not grant earning or settlement authority.',
         authorityBoundary:
           'Release-package availability does not imply assignment readiness, wallet readiness, or earning readiness.',
       },
@@ -612,26 +609,26 @@ export const publicProductPromisesDocument = () => {
         claim:
           'Anybody can plug in consumer compute, join the Tassadar run, and get automatically paid Bitcoin for verified work — the Episode 238 core promise.',
         safeCopy:
-          'The decentralized run is live and the contribution loop is proven once end-to-end: an independent contributor installed Pylon, claimed a window, submitted an executor trace, was independently validated, and two distinct independent contributors were paid real Bitcoin (1,005 sats real total). But the unqualified "anybody plugs in → automatically gets paid" promise is not green: the working node is published only under the npm rc dist-tag (the default npx install resolves the 0.2.5 bootstrap stub), and the one self-serve payout was operator-retro-settled because the auto-stream skipped at verdict — no fully-autonomous self-serve settlement has landed yet.',
+          'The decentralized run is live and the contribution loop is proven once end-to-end: an independent contributor installed Pylon, claimed a window, submitted an executor trace, was independently validated, two distinct independent contributors were paid real Bitcoin (1,005 sats real total), and npm latest now resolves @openagentsinc/pylon@1.0.0. But the unqualified "anybody plugs in → automatically gets paid" promise is not green: the one self-serve payout was operator-retro-settled because the auto-stream skipped at verdict, so no fully-autonomous self-serve settlement has landed yet.',
         unsafeCopy:
-          'Do not claim that anybody can install today and automatically earn Bitcoin, that the default npx @openagentsinc/pylon install yields an earning-capable node, or that the self-serve install→claim→verify→auto-paid loop is proven with no operator assist. Do not extrapolate two bounded canary-scale settlements into broad or network-scale consumer-compute earning.',
+          'Do not claim that anybody can install today and automatically earn Bitcoin, or that the self-serve install→claim→verify→auto-paid loop is proven with no operator assist. Do not extrapolate two bounded canary-scale settlements into broad or network-scale consumer-compute earning.',
         evidenceRefs: [
           'docs/transcripts/238.md',
           'docs/launch/2026-06-18-pylon-v1-launch-readiness-audit.md',
           'https://openagents.com/api/training/runs/run.tassadar.executor.20260615/settlements',
           'https://openagents.com/INSTALL.md',
+          'npm:@openagentsinc/pylon@1.0.0:latest',
           'promise:training.decentralized_training_launch.v1',
           'promise:pylon.v03_release_candidate.v1',
           'promise:pylon.install_without_wallet_knowledge.v1',
           'promise:proof.claim_upgrade_receipts.v1',
         ],
         blockerRefs: [
-          'blocker.product_promises.default_npm_install_not_earning_capable',
           'blocker.product_promises.fully_autonomous_self_serve_settlement_missing',
           'blocker.product_promises.consumer_compute_self_serve_scale_methodology_missing',
         ],
         verification:
-          'Green requires (1) a default, documented install command that yields an earning-capable node (the npm latest dist-tag must not silently hand a new contributor the 0.2.5 bootstrap stub); (2) at least one fully-autonomous auto-stream settlement firing at verdict to a fresh independent contributor with zero operator action, captured in a dereferenceable receipt; and (3) a participant/scale methodology before any broad "anybody" copy. Upgrade receipt-first per proof.claim_upgrade_receipts.v1.',
+          'Default package install is no longer the blocker: npm latest resolves @openagentsinc/pylon@1.0.0 and `npx --yes --package @openagentsinc/pylon pylon --version` returned 1.0.0 on 2026-06-18. Green still requires (1) at least one fully-autonomous auto-stream settlement firing at verdict to a fresh independent contributor with zero operator action, captured in a dereferenceable receipt; and (2) a participant/scale methodology before any broad "anybody" copy. Upgrade receipt-first per proof.claim_upgrade_receipts.v1.',
         authorityBoundary:
           'A proven loop plus two bounded operator-touched settlements does not authorize an unqualified self-serve consumer-compute earning claim, automatic-payout authority, or network-scale earning copy.',
       },
@@ -810,7 +807,6 @@ export const publicProductPromisesDocument = () => {
           'promise:pylon.install_without_wallet_knowledge.v1',
         ],
         blockerRefs: [
-          'blocker.product_promises.pylon_v1_default_install_not_fully_closed',
           'blocker.product_promises.multi_earning_mode_receipts_missing',
           'blocker.product_promises.multi_earning_settlement_refs_missing',
           'blocker.product_promises.safe_public_projection_missing',
@@ -2676,8 +2672,9 @@ export const publicProductPromisesDocument = () => {
       'Registry 2026-06-14.4: Coder Cloud Phase 1 contract layer fully landed (#4997 Pylon cloud dispatch to the placement endpoint with local fallback, plus cloud #90 GCE lease lifecycle, on top of #4998/#4999/cloud #86-#88). autopilot.cloud_coding_sessions.v1 stays red: live GCE provisioning is a fake-default ADC-gated stub and the cloud.gce.* event kinds + resource_usage_receipt ref do not round-trip to the desktop yet (#5005, open). This registry version is the one deployed after the zero-debt architecture gate (check:architecture) was brought back to green: the wave-3 comment-only false positives were reworded, the 7 raw JSON.parse calls were routed through the parseJsonUnknown json-boundary helper, and three migration-bridge budgets (route Effect.promise adapters 8->18, Worker Response surfaces 80->83, index.ts runPromise allowlist 6->7) were raised under owner authorization with ratchet-down notes.',
       'Registry 2026-06-17.3: the Spark agent-wallet unification epic #5176 closed end-to-end. Offline receive is recipient-confirmed by two independent contributors (Trigger 50k, Whitefang 50k) with payments.offline_receive_spark_fallback.v1 green; Spark is now the primary agent balance (#5178); and consented owner-approved Spark send/withdraw (`wallet send --rail spark --confirm-send`) is shipped and verified on Pylon rc.16 with real 100-sat and 878-sat sends (state=sent/status=completed, balance debited). The original offline-receive gap #5078 and the rc.13 send/version bugs #5184/#5185 are closed. This version updates the offline-receive record’s evidence/verification only — the claim stays receive-only and no new public send/withdraw claim is asserted; a dedicated consented-spend/withdraw promise remains an owner product-claim decision. Host-specific balance-read follow-up is tracked in #5194 (rc.17 candidate fix + PYLON_SPARK_DEBUG diagnostic).',
       'Registry 2026-06-18.4 adds one conservative new record, compute.agentic_kernel_optimization_at_scale.v1 (red): coding agents continuously writing and optimizing inference kernels across open models and device types, scored on BOTH throughput (tok/s) AND output-parity (an optimized kernel must reproduce identical outputs, verified by exact replay on an independent device), dispatched and paid through the verified-work market as part of the decentralized inference/training mesh. This is the direction, not a shipped network capability. The only demonstrated piece is a single historical development result on a public build-series video (docs/transcripts/217.md): in March 2026 an agent wrote custom CUDA kernels that took the OpenAgents Rust ML library Psionic to ~523 tok/s versus a leading local inference runtime\u2019s ~328 tok/s on the smallest Qwen 3.5 model, beating that runtime on the four smallest Qwen 3.5 models on a single machine. That demo is NOT a dereferenceable on-chain/worker receipt, so nothing here is green; the record stays red with the demo flagged as historical-demo evidence only. The output-parity correctness anchor reuses the exact-trace-replay verification proven under compute.tassadar_executor_poc.v1, and the payment rail reuses the verified-work labor market proven under labor.forum_work_requests.v1 / labor.nostr_negotiation_market.v1 \u2014 cross-referenced, not duplicated. Green requires a market-dispatched agent-authored kernel, a public tok/s improvement against a named baseline on declared hardware, an independent exact-replay output-parity verdict, accepted-work and settlement receipts, and a participant/scale methodology; per proof.demand_provenance.v1 internal first-party optimization is plumbing proof, not market proof. No promise_transition is required (a new red record creates no state flip).',
-      'Registry 2026-06-18.5 adds four conservative new records from the Episode 238 ("The Tassadar Run is Live") launch-readiness audit (docs/launch/2026-06-18-pylon-v1-launch-readiness-audit.md), and flips no existing promise. claims.world_first_ai_training_paid_bitcoin.v1 (red) and claims.world_first_public_llm_computer_training_run.v1 (red) hold the two on-camera "world first" claims as gated-pending-verification. An independent web-research prior-art review now exists (docs/launch/2026-06-18-world-firsts-verification.md, #5395) and finds both claims defensible only with their full qualifiers (claim 1: "Bitcoin + replay-verified training compute + own consumer devices" together; claim 2: "public/open-contributor LLM-computer training run," crediting Percepta as the paradigm originator); green still requires a dereferenceable evidence pack plus an owner-signed receipt-first upgrade, and the LLM-computer record additionally fixes the boundary that the live run is bounded exact-trace executor PoC work with no gradient descent (compute.tassadar_executor_poc.v1), not gradient-descent model training. pylon.consumer_compute_earns_bitcoin_self_serve.v1 (red) holds the video core promise ("anybody plugs in consumer compute and gets paid Bitcoin"): the loop is proven once end-to-end with two distinct independent contributors paid 1,005 sats real total, but two launch blockers stand — the default npx @openagentsinc/pylon install resolves the 0.2.5 bootstrap stub instead of the working node (published only under the rc dist-tag; in-repo build is rc.37, not yet on npm), and no fully-autonomous auto-stream self-serve settlement has landed (the one self-serve 5-sat payout was operator-retro-settled because the auto-stream skipped at verdict). marketplace.agentic_npm_module_registry.v1 (planned) holds the "learning by construction" agentic-npm module marketplace, which the transcript itself frames as an upcoming-video reboot of the earlier plugin marketplace. No promise_transition is required (four new records create no state flips); upgrades remain receipt-first per proof.claim_upgrade_receipts.v1.',
-      'Registry 2026-06-18.6 is a copy-only Pylon release-line reconciliation after the stable v1.0 source cut landed. It updates current registry summary/caveat language, AGENTS.md install truth, and launch-copy guards from stale v0.3/RC wording to v1.0 wording while preserving all earning, assignment, settlement, and marketplace blockers. No promise state flips, no owner-signed transition receipt, and no new payout authority are created; L-1 still closes only when the default install path is receipt-proven.',
+      'Registry 2026-06-18.5 adds four conservative new records from the Episode 238 ("The Tassadar Run is Live") launch-readiness audit (docs/launch/2026-06-18-pylon-v1-launch-readiness-audit.md), and flips no existing promise. claims.world_first_ai_training_paid_bitcoin.v1 (red) and claims.world_first_public_llm_computer_training_run.v1 (red) hold the two on-camera "world first" claims as gated-pending-verification. An independent web-research prior-art review now exists (docs/launch/2026-06-18-world-firsts-verification.md, #5395) and finds both claims defensible only with their full qualifiers (claim 1: "Bitcoin + replay-verified training compute + own consumer devices" together; claim 2: "public/open-contributor LLM-computer training run," crediting Percepta as the paradigm originator); green still requires a dereferenceable evidence pack plus an owner-signed receipt-first upgrade, and the LLM-computer record additionally fixes the boundary that the live run is bounded exact-trace executor PoC work with no gradient descent (compute.tassadar_executor_poc.v1), not gradient-descent model training. pylon.consumer_compute_earns_bitcoin_self_serve.v1 (red) holds the video core promise ("anybody plugs in consumer compute and gets paid Bitcoin"): the loop is proven once end-to-end with two distinct independent contributors paid 1,005 sats real total, but at that point two launch blockers stood — default npx still resolved the 0.2.5 bootstrap stub, and no fully-autonomous auto-stream self-serve settlement had landed. Registry 2026-06-18.7 supersedes only the default-npm-install blocker; the autonomous-settlement and scale blockers remain. marketplace.agentic_npm_module_registry.v1 (planned) holds the "learning by construction" agentic-npm module marketplace, which the transcript itself frames as an upcoming-video reboot of the earlier plugin marketplace. No promise_transition is required (four new records create no state flips); upgrades remain receipt-first per proof.claim_upgrade_receipts.v1.',
+      'Registry 2026-06-18.6 is a copy-only Pylon release-line reconciliation after the stable v1.0 source cut landed. It updates current registry summary/caveat language, AGENTS.md install truth, and launch-copy guards from stale v0.3/RC wording to v1.0 wording while preserving all earning, assignment, settlement, and marketplace blockers. No promise state flips, no owner-signed transition receipt, and no new payout authority are created.',
+      'Registry 2026-06-18.7 adds the live default-package install receipt: npm latest resolves @openagentsinc/pylon@1.0.0 and `npx --yes --package @openagentsinc/pylon pylon --version` returned 1.0.0 on 2026-06-18. This clears the default npm install blocker from the Pylon release records and the consumer-compute self-serve record, but does not flip the self-serve earning promise green: fully autonomous auto-stream settlement and scale methodology remain blocked, and signed standalone feed rollout remains a separate release surface.',
       'Do not post secrets, wallet material, provider payloads, private repository data, raw invoices, preimages, or customer-sensitive content in public reports.',
     ],
   }

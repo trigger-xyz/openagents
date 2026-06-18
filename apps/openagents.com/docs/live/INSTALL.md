@@ -10,9 +10,9 @@ Pylon and join the training run," this is the page to follow.
 npx @openagentsinc/pylon
 ```
 
-This is the agent-native headless node (a single signed binary you drive
-entirely from the CLI; macOS + Linux; **no coding-agent SDK required**). Once
-it's running, join the live Tassadar training run — see
+This is the agent-native headless node (a CLI package you drive entirely from
+the terminal; macOS + Linux; **no coding-agent SDK required**). Once it's
+running, join the live Tassadar training run — see
 <https://openagents.com/AGENTS.md> ("Join The Tassadar Training Run").
 
 **Autopilot Desktop** (section B below) is a secondary option: a human-facing
@@ -22,10 +22,9 @@ it to contribute.
 > Honest scope: installing or running a node is a **capability, not an automatic
 > earning path** — paid work and settlement stay behind their own gated public
 > promises, and accepted work pays only against dereferenceable receipts.
-> The v1.0 npm publish is finalizing; if `npx @openagentsinc/pylon` resolves an
-> older bootstrap build, use `npx @openagentsinc/pylon@rc` or the signed binary
-> below until v1.0 is the default `latest` tag. Behavior, copy, and pricing may
-> still change.
+> The default npm package is v1.0.0. The signed standalone binary / auto-update
+> feed is a separate release surface; use it only when you specifically want a
+> pinned platform artifact. Behavior, copy, and pricing may still change.
 
 ---
 
@@ -34,33 +33,40 @@ it to contribute.
 Platforms: `darwin-arm64`, `darwin-x64`, `linux-x64`, `linux-arm64`.
 
 0. **Quick start (npm):** `npx @openagentsinc/pylon` installs and runs the v1.0
-   node directly — the simplest agent path. (While the v1.0 publish finalizes,
-   `npx @openagentsinc/pylon@rc` pins the current contributor build.) The
-   signed-binary steps below are the alternative when you want to verify the
-   artifact yourself or pin a platform build.
+   node directly — the simplest agent path. To verify the published package
+   without starting the node:
+   ```sh
+   npx --yes --package @openagentsinc/pylon pylon --version
+   # expect: 1.0.0
+   ```
+   The signed-binary steps below are the alternative when you want to verify a
+   standalone platform artifact yourself.
 
-1. **Get the signed binary.** Preferred: download from our GCP feed
+1. **Optional: get the signed standalone binary.** The npm package is the default
+   install path. For a pinned standalone artifact, download from the GCP feed
    `https://updates.openagents.com/pylon/rc/<platform>/feed.json` →
-   `releases[0].artifactUrl`. If that 404s, the feed isn't published yet — build
-   from source instead:
+   `releases[0].artifactUrl`. The signed feed is versioned independently from
+   npm `latest`; verify the version in the feed before using it. If the feed
+   404s, build from source instead:
    ```sh
    git clone https://github.com/OpenAgentsInc/openagents
    cd openagents/apps/pylon && bun install        # agent SDKs are optional deps; not needed
-   bun run build:rc-binaries 1.0.0-rc.2           # signs all 4 platforms into dist/rc/
+   bun run build:rc-binaries 1.0.0                # signs all 4 platforms into dist/rc/
    ```
 2. **Verify it's genuinely ours** (signed with the OpenAgents ed25519 release
-   key, kid `2dbe811d19f67528` — fail closed on mismatch):
+   key, kid `2dbe811d19f67528` — fail closed on mismatch). Replace
+   `<version>` with the feed/build version you are installing:
    ```sh
    bun apps/oa-updates/scripts/verify-release.ts \
-     apps/pylon/dist/rc/1.0.0-rc.2/pylon-<platform> \
-     apps/pylon/dist/rc/1.0.0-rc.2/pylon-<platform>.sig.json
+     apps/pylon/dist/rc/<version>/pylon-<platform> \
+     apps/pylon/dist/rc/<version>/pylon-<platform>.sig.json
    # expect: OK: signed by OpenAgents (kid 2dbe811d19f67528)
    ```
 3. **Run it** (use a throwaway home; read JSON on stdout):
    ```sh
    export PYLON_HOME=$(mktemp -d)/pylon
    ./pylon help --json        # the full command catalog — discover everything from here
-   ./pylon status --json      # .state.version == "1.0.0-rc.2", .state.runtime.lifecycle
+   ./pylon status --json      # .state.version matches the artifact you installed
    ./pylon                    # default: run the headless node
    ```
    Auto-update is **on by default** (verifies against the pinned key, fail

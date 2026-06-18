@@ -88,7 +88,7 @@ describe('public product promises document', () => {
       publicProductPromisesDocument(),
     )
 
-    expect(decoded.version).toBe('2026-06-18.6')
+    expect(decoded.version).toBe('2026-06-18.7')
     expect(decoded.registryVersion).toBe(decoded.version)
     expect(Date.parse(decoded.generatedAt)).not.toBeNaN()
     expect(decoded.maxStalenessSeconds).toBe(0)
@@ -122,9 +122,31 @@ describe('public product promises document', () => {
       ...decoded.notes,
     ].join('\n')
     expect(currentCopy).not.toMatch(
-      /latest stays 0\.2\.5|only published, installable Pylon|release candidate, not stable 0\.3\.0|Pylon v1\.0 is present in the monorepo as a release candidate/i,
+      /latest stays 0\.2\.5|only published, installable Pylon|release candidate, not stable 0\.3\.0|Pylon v1\.0 is present in the monorepo as a release candidate|default npm publish convergence/i,
     )
     expect(currentCopy).toContain('Pylon v1.0 has a stable source cut')
+    expect(currentCopy).toContain('npm latest resolves @openagentsinc/pylon@1.0.0')
+    const pylonReleasePromise = decoded.promises.find(
+      promise => promise.promiseId === 'pylon.v03_release_candidate.v1',
+    )
+    expect(pylonReleasePromise?.verification).toContain(
+      'npx --yes --package @openagentsinc/pylon pylon --version',
+    )
+    expect(pylonReleasePromise?.blockerRefs).not.toContain(
+      'blocker.product_promises.pylon_v1_default_install_receipt_missing',
+    )
+    const consumerComputePromise = decoded.promises.find(
+      promise => promise.promiseId === 'pylon.consumer_compute_earns_bitcoin_self_serve.v1',
+    )
+    expect(consumerComputePromise?.blockerRefs).toEqual(
+      expect.arrayContaining([
+        'blocker.product_promises.fully_autonomous_self_serve_settlement_missing',
+        'blocker.product_promises.consumer_compute_self_serve_scale_methodology_missing',
+      ]),
+    )
+    expect(consumerComputePromise?.blockerRefs).not.toContain(
+      'blocker.product_promises.default_npm_install_not_earning_capable',
+    )
     expect(decoded.promises).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
@@ -223,8 +245,8 @@ describe('public product promises document', () => {
           promiseId: 'pylon.consumer_compute_earns_bitcoin_self_serve.v1',
           state: 'red',
           blockerRefs: expect.arrayContaining([
-            'blocker.product_promises.default_npm_install_not_earning_capable',
             'blocker.product_promises.fully_autonomous_self_serve_settlement_missing',
+            'blocker.product_promises.consumer_compute_self_serve_scale_methodology_missing',
           ]),
           evidenceRefs: expect.arrayContaining([
             'https://openagents.com/api/training/runs/run.tassadar.executor.20260615/settlements',
@@ -515,12 +537,12 @@ describe('public product promises document', () => {
     const document = publicProductPromisesDocument()
 
     expect(
-      publicProductPromisesAnnouncementReadiness('2026-06-18.6', document),
+      publicProductPromisesAnnouncementReadiness('2026-06-18.7', document),
     ).toMatchObject({
       blockerRefs: [],
-      expectedVersion: '2026-06-18.6',
+      expectedVersion: '2026-06-18.7',
       maxStalenessSeconds: 0,
-      servedVersion: '2026-06-18.6',
+      servedVersion: '2026-06-18.7',
       status: 'ready',
     })
     expect(
@@ -530,7 +552,7 @@ describe('public product promises document', () => {
         'product-promises-announcement-blocker:expected-version-not-served:2026-06-12.1',
       ],
       expectedVersion: '2026-06-12.1',
-      servedVersion: '2026-06-18.6',
+      servedVersion: '2026-06-18.7',
       status: 'blocked',
     })
   })
